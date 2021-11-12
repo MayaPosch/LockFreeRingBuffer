@@ -8,7 +8,7 @@ It can be used both for a continuous data stream, as well as for a specific data
 
 The project is contained in a single static class (DataBuffer), which can be used as implemented in the test found in the `test/` folder.
 
-More extensive documentation will follow.
+Usage and underlying theory of the ring buffer has been covered in [tihs blog post](https://mayaposch.wordpress.com/2021/11/12/lock-free-ring-buffer-implementation-for-maximum-throughput/).
 
 ## Test ##
 
