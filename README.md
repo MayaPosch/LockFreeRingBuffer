@@ -4,6 +4,8 @@ This is an implementation of a lock-free ring buffer, using only C++11 STL level
 
 It can be used both for a continuous data stream, as well as for a specific data length (file length).
 
+An [Ada port](ada/README.md) is also in progress.
+
 ## Usage ##
 
 The project is contained in a single static class (DataBuffer), which can be used as implemented in the test found in the `test/` folder.

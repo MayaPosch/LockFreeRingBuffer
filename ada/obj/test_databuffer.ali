@@ -1,0 +1,131 @@
+V "GNAT Lib v14"
+M P W=b
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_IO
+RV NO_LOCAL_ALLOCATORS
+RV NO_STANDARD_ALLOCATORS_AFTER_ELABORATION
+RV NO_TASK_ALLOCATORS
+RV NO_TASKING
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV MAX_TASKS=1+
+
+U test_databuffer%b	test_databuffer.adb	c1477f62 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.characters%s	a-charac.ads		a-charac.ali
+W ada.characters.latin_1%s  a-chlat1.ads	a-chlat1.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W datarequest%s		datarequest.adb		datarequest.ali
+W interfaces%s		interfac.ads		interfac.ali
+W lfringdatabuffer%s	lfringdatabuffer.adb	lfringdatabuffer.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.img_uns%s	s-imguns.ads		s-imguns.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+Z system.unsigned_types%s  s-unstyp.ads		s-unstyp.ali
+
+D ada.ads		20240513053718 76789da1 ada%s
+D a-charac.ads		20240513053718 2d3ec45b ada.characters%s
+D a-chlat1.ads		20240513053718 e0d72e76 ada.characters.latin_1%s
+D a-except.ads		20240513053718 e7970cd9 ada.exceptions%s
+D a-ioexce.ads		20240513053718 40018c65 ada.io_exceptions%s
+D a-reatim.ads		20240513053718 d11673fd ada.real_time%s
+D a-stream.ads		20240513053718 119b8fb3 ada.streams%s
+D a-string.ads		20240513053718 90ac6797 ada.strings%s
+D a-sttebu.ads		20240513053718 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20240513053718 c6ced0ae ada.strings.utf_encoding%s
+D a-tags.ads		20240513053718 9eaa38c6 ada.tags%s
+D a-textio.ads		20240513053718 34ef47de ada.text_io%s
+D a-unccon.ads		20240513053718 0e9b276f ada.unchecked_conversion%s
+D datarequest.ads	20240724180556 f456951c datarequest%s
+D interfac.ads		20240513053718 9111f9c1 interfaces%s
+D i-c.ads		20240513053718 aac316ce interfaces.c%s
+D i-cstrin.ads		20240513053718 5409c1a4 interfaces.c.strings%s
+D i-cstrea.ads		20240513053718 ffd01b9d interfaces.c_streams%s
+D lfringdatabuffer.ads	20240725104446 ceffa85a lfringdatabuffer%s
+D system.ads		20240513053718 e4f8b086 system%s
+D s-atacco.ads		20240513053718 5868e3ba system.address_to_access_conversions%s
+D s-conca2.ads		20240513053718 b5fb73f7 system.concat_2%s
+D s-crtl.ads		20240513053718 beb39b9e system.crtl%s
+D s-exctab.ads		20240513053718 91bef6ef system.exception_table%s
+D s-ficobl.ads		20240513053718 dc5161d4 system.file_control_block%s
+D s-imageu.ads		20240513053718 b0b50650 system.image_u%s
+D s-imguns.ads		20240513053718 c4e23690 system.img_uns%s
+D s-multip.ads		20240513053718 38ac9f73 system.multiprocessors%s
+D s-osinte.ads		20240513053718 97504df8 system.os_interface%s
+D s-parame.ads		20240513053718 3597fc11 system.parameters%s
+D s-putima.ads		20240513053718 17291fe4 system.put_images%s
+D s-secsta.ads		20240513053718 578279f5 system.secondary_stack%s
+D s-soflin.ads		20240513053718 df77073e system.soft_links%s
+D s-stache.ads		20240513053718 0b81c1fe system.stack_checking%s
+D s-stausa.ads		20240513053718 5be75682 system.stack_usage%s
+D s-stalib.ads		20240513053718 1c9580f6 system.standard_library%s
+D s-stoele.ads		20240513053718 ccded4e8 system.storage_elements%s
+D s-tasinf.ads		20240513053718 601f6b72 system.task_info%s
+D s-taspri.ads		20240513053718 a1350802 system.task_primitives%s
+D s-taprop.ads		20240513053718 6eefbe12 system.task_primitives.operations%s
+D s-taskin.ads		20240513053718 ebc4edbe system.tasking%s
+D s-tassta.ads		20240513053718 cca55c94 system.tasking.stages%s
+D s-traent.ads		20240513053718 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20240513053718 fa2a7f59 system.unsigned_types%s
+D s-valspe.ads		20240513053718 b0fcd073 system.val_spec%s
+D s-vauspe.ads		20240513053718 89269ba5 system.value_u_spec%s
+D s-vs_uns.ads		20240513053718 e7f47a27 system.vs_uns%s
+D s-wchcon.ads		20240513053718 d9032363 system.wch_con%s
+D s-win32.ads		20240513053718 15ac53fb system.win32%s
+D test_databuffer.adb	20240725111536 bec7d24d test_databuffer%b
+G a e
+G c Z b b [test_databuffer standard 28 11 none]
+G r c none [test_databuffer standard 28 11 none] [init lfringdatabuffer 31 18 none]
+G r s datarequesttask [test_databuffer standard 28 11 none] [datarequesttaskVIP datarequest 3 9 none]
+G r c none [test_databuffer standard 28 11 none] [setdatarequesttask lfringdatabuffer 35 19 none]
+G r c none [test_databuffer standard 28 11 none] [read lfringdatabuffer 45 18 none]
+G r c none [test_databuffer standard 28 11 none] [iseof lfringdatabuffer 49 18 none]
+G r c none [test_databuffer standard 28 11 none] [isempty lfringdatabuffer 50 18 none]
+X 1 ada.ads
+16K9*Ada 20e8 50|9r6 9r23 11r6 11r34
+X 2 a-charac.ads
+16K13*Characters 18e19 50|11r10 11r38
+X 3 a-chlat1.ads
+16K24*Latin_1 294e27 50|11w21 11r49
+33e4*LF{character} 50|88r13 95r18
+X 12 a-textio.ads
+58K13*Text_IO 785e16 50|9w10 9r27
+515U14*Put 50|67s25 88s9
+565U14*Put_Line 50|41s9 46s17 61s25 76s17 79s25 90s17 92s17 95s9
+X 14 datarequest.ads
+2K9*dataRequest 6e16 50|14w6 14r23
+3T19*dataRequestTask 5e28 50|51r20
+X 15 interfac.ads
+38K9*Interfaces 233e15 50|10w6 10r22
+70M9*Unsigned_8 50|33r27 67r29
+81M9*Unsigned_32 50|35r27 38r35
+X 19 lfringdatabuffer.ads
+10K9*LFRingDataBuffer 92e21 50|7w6 29r28
+17A14*buff_array(15|70M9)<15|81M9> 50|32r30
+26P14*drq_access(14|3T19) 50|36r38
+31V18*init{boolean} 50|44s23
+35U19*setDataRequestTask 50|52s12
+45V18*read{15|81M9} 50|59s28
+49V18*isEof{boolean} 50|83s23
+50V18*isEmpty{boolean} 50|84s39
+X 35 s-stausa.ads
+207U14*Initialize 208i<c,__gnat_stack_usage_initialize>22
+272U14*Output_Results 276i<c,__gnat_stack_usage_output_results>22
+X 50 test_databuffer.adb
+28U11*test_databuffer 28b11 96l5 96t20
+29K17 DB=29:28 32r27 36r35 44r20 52r9 59r25 83r20 84r36
+32a9 bytes{19|17A14} 59m36 59r36 67r46 68r40
+33m9 expected{15|70M9} 68r28 73m25 73r37
+34b9 aborted{boolean} 69m33 78r20 89r12
+35m9 read{15|81M9} 59m17 60r20 66r39
+36p9 drq{19|26P14} 51m9 52r31
+37b9 initret{boolean} 44m9 45r12
+38m9 idx{15|81M9} 65m17 67r52 68r46 72m25 72r44
+39b9 emptied{boolean} 56m9 58r15 84m25
+66i21 i{integer}
+
