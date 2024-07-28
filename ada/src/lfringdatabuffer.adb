@@ -22,13 +22,13 @@ package body LFRingDataBuffer is
 		end if;
 		
 		buffer := new buff_array(0 .. capacity);
-		LFRingDataBuffer.capacity := capacity; -- FIXME:
+		LFRingDataBuffer.capacity := capacity;
 		
 		size 	:= 0;
 		unread 	:= 0;
 		free 	:= capacity;
 		
-		buff_last 	:= capacity;
+		buff_last 	:= capacity - 1;
 		data_front	:= 0;
 		data_back	:= 0;
 		read_index	:= 0;
@@ -174,14 +174,14 @@ package body LFRingDataBuffer is
 		bytesRead := 0;
 			
 		-- Determine the number of bytes we can read in one copy operation.
-		-- This depends on the location of the write pointer ('back') compared to the
-		-- read pointer ('index). If the write pointer is ahead of the read pointer, we can read
-		-- up till there, otherwise to the end of the buffer.
+		-- This depends on the location of the write pointer ('data_back') compared to the
+		-- read pointer ('read_index). If the write pointer is ahead of the read pointer, we can
+		-- read up till there, otherwise to the end of the buffer.
 		locunread := unread;
 		bytesSingleRead := locunread;
 		if (buff_last - read_index) < bytesSingleRead then
 			-- Unread section wraps around.
-			bytesSingleRead := buff_last - read_index;
+			bytesSingleRead := buff_last - read_index + 1;
 		end if;
 			
 		if len <= bytesSingleRead then
@@ -280,13 +280,13 @@ package body LFRingDataBuffer is
 		-- bytes at the low (beginning) and high (end) side respectively.
 		
 		-- Determine the number of bytes we can write in one copy operation.
-		--This depends on the number of 'free' bytes, and the location of the read pointer ('index') 
-		-- compared to the  write pointer ('back'). If the read pointer is ahead of the write pointer, 
-		-- we can write up till there, otherwise to the end of the buffer.
+		--This depends on the number of 'free' bytes, and the location of the read pointer
+		-- ('read_index') compared to the write pointer ('data_back'). If the read pointer is ahead of 
+		-- the write pointer, we can write up till there, otherwise to the end of the buffer.
 		locfree := free;
 		bytesSingleWrite := free;
 		if (buff_last - data_back) < bytesSingleWrite then
-			bytesSingleWrite := buff_last - data_back;
+			bytesSingleWrite := buff_last - data_back + 1;
 		end if;
 		
 		put_line("Writing: " & Unsigned_8'Image(data'Length) & " bytes.");
@@ -294,6 +294,7 @@ package body LFRingDataBuffer is
 		put_line("locfree: " & Unsigned_32'Image(locfree));
 		put_line("free: " & Unsigned_32'Image(free));
 		put_line("capacity: " & Unsigned_32'Image(capacity));
+		put_line("data_back: " & Unsigned_32'Image(data_back));
 		
 		if data'Length <= bytesSingleWrite then
 			-- Enough space to write the data in one go.
