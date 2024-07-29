@@ -14,21 +14,8 @@ with Ada.Characters.Latin_1; use Ada.Characters.Latin_1;
 with dataRequest; use dataRequest;
 
 
-
--- task dataRequest is
-	-- entry fetch;
--- end dataRequest;
-
--- task body dataRequest is
--- begin
-	-- accept fetch;
--- end dataRequest;
-
-
 procedure test_databuffer is
 	package DB renames LFRingDataBuffer;
-	--type uint8_array is array (Integer range <>) of Unsigned_8;
-	--bytes 		: uint8_array (0..7);
 	bytes 		: DB.buff_array (0..7);
 	expected 	: Unsigned_8 	:= 0;
 	aborted		: Boolean 		:= False;
@@ -52,9 +39,7 @@ begin
 	DB.setDataRequestTask(drq);
 	
 	-- The test file data is 100 bytes. We read 10 byte chunks.
-	--while DB.isEof /= True loop
 	emptied := False;
-	--while DB.isEoF /= True and emptied = False loop
 	while emptied = False loop
 		read := DB.read(8, bytes);
 		if read = 0 then
