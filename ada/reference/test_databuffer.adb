@@ -49,7 +49,7 @@ begin
 		
 		idx := 0;
 		for i in 0 .. Integer(read - 1) loop
-			put(Unsigned_8'Image(bytes(idx)) & " ");
+			put(bytes(idx)'Image & " ");
 			if expected /= bytes(idx) then
 				aborted := True;
 			end if;

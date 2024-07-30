@@ -12,7 +12,6 @@ package body dataRequest is
 	
 	task body dataRequestTask is
 		lastnum : Unsigned_8 := 0;
-		--data	: String(0 .. 9);
 		data	: DB.buff_array (0..9);
 		wrote	: Unsigned_32;
 		idx		: Unsigned_32 := 0;
@@ -24,7 +23,6 @@ package body dataRequest is
 					-- Write into the buffer. We use a 10 byte pattern.
 					idx	:= 0;
 					for i in 0 .. 9 loop
-						--data(i) := Character'Val(lastnum);
 						data(idx) := lastnum;
 						lastnum := lastnum + 1;
 						idx		:= idx + 1;
@@ -35,7 +33,7 @@ package body dataRequest is
 					put_line("Wrote " & Unsigned_32'Image(wrote) & HT & "- ");
 					idx := 0;
 					for i in 0 .. Integer(wrote - 1) loop
-						put(Unsigned_8'Image(data(idx)) & " ");
+						put(data(idx)'Image & " ");
 						idx := idx + 1;
 					end loop;
 					
