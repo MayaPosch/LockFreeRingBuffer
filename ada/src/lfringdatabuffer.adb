@@ -50,6 +50,7 @@ package body LFRingDataBuffer is
 		if (buffer /= null) then
 			-- delete an existing buffer.
 			free_buffer(buffer);
+			buffer := null;
 		end if;
 		
 		return true;
