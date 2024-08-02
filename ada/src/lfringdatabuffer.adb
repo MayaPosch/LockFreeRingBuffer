@@ -21,7 +21,7 @@ package body LFRingDataBuffer is
 			free_buffer (buffer);
 		end if;
 		
-		buffer := new buff_array(0 .. capacity);
+		buffer := new buff_array(0 .. capacity - 1);
 		LFRingDataBuffer.capacity := capacity;
 		
 		size 	:= 0;
@@ -314,7 +314,7 @@ package body LFRingDataBuffer is
 			-- Only enough space in buffer to write to the back. Write what we can, then return.
 			put_line("Partial write at back.");
 			writeback		:= (data_back + bytesSingleWrite) - 1;
-			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite);
+			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite - 1);
 			bytesWritten	:= bytesSingleWrite;
 			data_back		:= data_back + bytesWritten;
 			unread			:= unread + bytesWritten;
@@ -327,7 +327,7 @@ package body LFRingDataBuffer is
 			-- Write to the back, then the rest at the front.
 			put_line("Partial write at back, rest at front.");
 			writeback		:= (data_back + bytesSingleWrite) - 1;
-			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite);
+			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite - 1);
 			bytesWritten	:= bytesSingleWrite;
 			unread			:= unread + bytesWritten;
 			free			:= free - bytesWritten;
@@ -376,7 +376,9 @@ package body LFRingDataBuffer is
 			null;
 		elsif free > 204799 then
 			-- Request another block.
-			readT.fetch;
+			if readT /= null then
+				readT.fetch;
+			end if;
 		end if;
 		
 		return bytesWritten;
