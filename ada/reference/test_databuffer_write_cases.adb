@@ -71,5 +71,5 @@ begin
 	test_databuffer_case("Test 1:", 7, 3, 0, 3, "Single write at back");				-- branch: if data'Length <= bytesSingleWrite then
 	test_databuffer_case("Test 2:", 7, 4, 0, 4, "Single write at back, only part");		-- branch: elsif bytesSingleWrite > 0 and locfree = bytesSingleWrite then
 	test_databuffer_case("Test 3:", 7, 5, 3, 5, "Partly write at back, rest at front");	-- branch: elsif bytesSingleWrite > 0 and locfree > bytesSingleWrite then
-	test_databuffer_case("Test 4:", 7, 5, 3, 8, "Partly write at back, part at front");	-- branch: elsif bytesSingleWrite > 0 and locfree > bytesSingleWrite then
+	test_databuffer_case("Test 4:", 7, 5, 3, 6, "Partly write at back, part at front");	-- branch: elsif bytesSingleWrite > 0 and locfree > bytesSingleWrite then
 end test_databuffer_write_cases;
