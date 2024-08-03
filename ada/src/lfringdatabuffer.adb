@@ -331,14 +331,20 @@ package body LFRingDataBuffer is
 			bytesWritten	:= bytesSingleWrite;
 			unread			:= unread + bytesWritten;
 			free			:= free - bytesWritten;
+			locfree			:= locfree - bytesWritten;
 			
 			data_back := 0;
 			
 			-- Write remainder at the front.
 			bytesToWrite := data'Length - bytesWritten;
+			put_line("bytesToWrite: " & Unsigned_32'Image(bytesToWrite));
+			put_line("data_back: " & Unsigned_32'Image(data_back));
+			put_line("bytesWritten: " & Unsigned_32'Image(bytesWritten));
+			put_line("locfree: " & Unsigned_32'Image(locfree));
 			if bytesToWrite <= locfree then
 				-- Write the remaining bytes we have.
 				put_line("rest at front.");
+				put_line("data'Last: " & Unsigned_32'Image(data'Last));
 				writeback		:= (data_back + bytesToWrite) - 1;
 				buffer.all(data_back .. writeback) := data(bytesWritten .. data'Last);
 				bytesWritten	:= bytesWritten + bytesToWrite;
@@ -349,7 +355,7 @@ package body LFRingDataBuffer is
 				-- Write the remaining space still available in the buffer.
 				put_line("part at front.");
 				writeback		:= (data_back + locfree) - 1;
-				buffer.all(data_back .. writeback) := data(bytesWritten - 1 .. locfree);
+				buffer.all(data_back .. writeback) := data(bytesWritten .. (bytesWritten + locfree - 1));
 				bytesWritten	:= bytesWritten + locfree;
 				unread			:= unread + locfree;
 				free			:= free - locfree;
