@@ -325,7 +325,7 @@ package body LFRingDataBuffer is
 			end if;
 		elsif bytesSingleWrite > 0 and locfree > bytesSingleWrite then
 			-- Write to the back, then the rest at the front.
-			put_line("Partial write at back, rest at front.");
+			put("Partial write at back, ");
 			writeback		:= (data_back + bytesSingleWrite) - 1;
 			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite - 1);
 			bytesWritten	:= bytesSingleWrite;
@@ -338,6 +338,7 @@ package body LFRingDataBuffer is
 			bytesToWrite := data'Length - bytesWritten;
 			if bytesToWrite <= locfree then
 				-- Write the remaining bytes we have.
+				put_line("rest at front.");
 				writeback		:= (data_back + bytesToWrite) - 1;
 				buffer.all(data_back .. writeback) := data(bytesWritten .. data'Last);
 				bytesWritten	:= bytesWritten + bytesToWrite;
@@ -346,8 +347,9 @@ package body LFRingDataBuffer is
 				data_back		:= data_back + bytesToWrite;
 			else
 				-- Write the remaining space still available in the buffer.
+				put_line("part at front.");
 				writeback		:= (data_back + locfree) - 1;
-				buffer.all(data_back .. writeback) := data(bytesWritten .. locfree);
+				buffer.all(data_back .. writeback) := data(bytesWritten - 1 .. locfree);
 				bytesWritten	:= bytesWritten + locfree;
 				unread			:= unread + locfree;
 				free			:= free - locfree;
