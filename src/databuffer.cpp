@@ -493,6 +493,7 @@ uint32_t DataBuffer::write(const char* data, uint32_t length) {
 		bytesWritten = bytesSingleWrite;
 		unread += bytesWritten;
 		free -= bytesWritten;
+		locfree -= bytesWritten;
 		
 		back = buffer;
 		
