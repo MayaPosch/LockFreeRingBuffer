@@ -6,6 +6,9 @@
 
 with Interfaces; use Interfaces;
 with dataRequest; use dataRequest;
+with System.Atomic_Operations.Integer_Arithmetic;
+with System.Atomic_Operations.Exchange;
+
 
 package LFRingDataBuffer is
 	-- public
@@ -20,7 +23,10 @@ package LFRingDataBuffer is
 	
 	type drq_access is access dataRequestTask;
 	
-	dataRequestPending	: Boolean with Atomic;
+	type Atomic_Boolean is new Boolean with Atomic;
+	package BAO is new System.Atomic_Operations.Exchange(Atomic_Boolean);
+	
+	dataRequestPending	: aliased Atomic_Boolean;
 	
 	-- 
 	function init(capacity: Unsigned_32) return Boolean;
@@ -51,6 +57,9 @@ private
 	type buff_ref is access buff_array;
 	buffer : buff_ref;
 	
+	type Atomic_Integer is new Integer with Atomic;
+	package IAO is new System.Atomic_Operations.Integer_Arithmetic(Atomic_Integer);
+	
 	-- Indices into buffer.
 	buff_first	: Unsigned_32;	-- Buffer start (0).
 	buff_last	: Unsigned_32;	-- Buffer end (capacity - 1).
@@ -61,8 +70,10 @@ private
 	capacity 	: Unsigned_32;
 	size		: Unsigned_32;
 	filesize	: Integer_64;
-	unread		: Unsigned_32 with Atomic;
-	free		: Unsigned_32 with Atomic;
+	--unread		: Unsigned_32 with Atomic;
+	unread		: aliased Atomic_Integer;
+	--free		: Unsigned_32 with Atomic;
+	free		: aliased Atomic_Integer;
 	byteIndex	: Unsigned_32;
 	byteIndexLow	: Unsigned_32;
 	byteIndexHigh	: Unsigned_32;
@@ -73,8 +84,10 @@ private
 	seekCB	: seekRequestCB;
 	readT	: drq_access;
 	
-	seekRequestPending	: Boolean with Atomic;
-	resetRequest		: Boolean with Atomic;
+	--seekRequestPending	: Boolean with Atomic;
+	seekRequestPending	: aliased Atomic_Boolean;
+	--resetRequest		: Boolean with Atomic;
+	resetRequest		: aliased Atomic_Boolean;
 	
 	sessionHandle	: Unsigned_32;
 	
