@@ -7,7 +7,7 @@ RM = rm -f
 
 BIN_OUTPUT := test_databuffer
 BIN_OUTPUT_WR := test_databuffer_write_cases
-ADAFLAGS := -aIsrc -D obj/
+ADAFLAGS := -aIsrc -D obj/ -gnat2022
 
 TEST_SOURCES := reference/test_databuffer.adb
 TEST_SOURCES_WR := reference/test_databuffer_write_cases.adb
