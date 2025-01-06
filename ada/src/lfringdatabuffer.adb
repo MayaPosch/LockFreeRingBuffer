@@ -192,8 +192,6 @@ package body LFRingDataBuffer is
 			read_index 	:= read_index + len; 	-- Advance read index.
 			bytesRead 	:= bytesRead + len;
 			byteIndex	:= byteIndex + len;
-			--unread		:= unread - len;		-- Unread bytes decrease by read byte count.
-			--free		:= free + len;			-- Read bytes become free for overwriting.
 			IAO.Atomic_Subtract(unread, Atomic_Integer(len));
 			IAO.Atomic_Add(free, Atomic_Integer(len));
 			
@@ -209,8 +207,6 @@ package body LFRingDataBuffer is
 			read_index	:= read_index + bytesSingleRead;	-- Advanced read index.
 			bytesRead	:= bytesRead + bytesSingleRead;
 			byteIndex	:= byteIndex + bytesSingleRead;
-			--unread		:= unread - bytesSingleRead;		-- Unread bytes decrease by read count.
-			--free		:= free + bytesSingleRead;			-- Read bytes become free bytes.
 			IAO.Atomic_Subtract(unread, Atomic_Integer(bytesSingleRead));
 			IAO.Atomic_Add(free, Atomic_Integer(bytesSingleRead));
 			
@@ -224,8 +220,6 @@ package body LFRingDataBuffer is
 			bytes(0 .. tidx)	:= buffer.all(read_index .. readback);
 			bytesRead	:= bytesRead + bytesSingleRead;
 			byteIndex	:= byteIndex + bytesSingleRead;
-			--unread		:= unread - bytesSingleRead;
-			--free		:= free + bytesSingleRead;
 			IAO.Atomic_Subtract(unread, Atomic_Integer(bytesSingleRead));
 			IAO.Atomic_Add(free, Atomic_Integer(bytesSingleRead));
 			
@@ -241,8 +235,6 @@ package body LFRingDataBuffer is
 				read_index	:= read_index + bytesToRead;
 				bytesRead	:= bytesRead + bytesToRead;
 				byteIndex	:= byteIndex + bytesToRead;
-				--unread		:= unread - bytesToRead;
-				--free		:= free + bytesToRead;
 				IAO.Atomic_Subtract(unread, Atomic_Integer(bytesToRead));
 				IAO.Atomic_Add(free, Atomic_Integer(bytesToRead));
 			else
@@ -253,8 +245,6 @@ package body LFRingDataBuffer is
 				read_index	:= read_index + locunread;
 				bytesRead	:= bytesRead + locunread;
 				byteIndex	:= byteIndex + locunread;
-				--unread		:= unread - locunread;
-				--free		:= free + locunread;
 				IAO.Atomic_Subtract(unread, Atomic_Integer(locunread));
 				IAO.Atomic_Add(free, Atomic_Integer(locunread));
 			end if;
@@ -314,8 +304,6 @@ package body LFRingDataBuffer is
 			buffer.all(data_back .. writeback) := data;
 			bytesWritten	:= data'Length;
 			data_back		:= data_back + bytesWritten;
-			--unread			:= unread + bytesWritten;
-			--free			:= free - bytesWritten;
 			IAO.Atomic_Add(unread, Atomic_Integer(bytesWritten));
 			IAO.Atomic_Subtract(free, Atomic_Integer(bytesWritten));
 		
@@ -329,8 +317,6 @@ package body LFRingDataBuffer is
 			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite - 1);
 			bytesWritten	:= bytesSingleWrite;
 			data_back		:= data_back + bytesWritten;
-			--unread			:= unread + bytesWritten;
-			--free			:= free - bytesWritten;
 			IAO.Atomic_Add(unread, Atomic_Integer(bytesWritten));
 			IAO.Atomic_Subtract(free, Atomic_Integer(bytesWritten));
 			
@@ -343,8 +329,6 @@ package body LFRingDataBuffer is
 			writeback		:= (data_back + bytesSingleWrite) - 1;
 			buffer.all(data_back .. writeback) := data(0 .. bytesSingleWrite - 1);
 			bytesWritten	:= bytesSingleWrite;
-			--unread			:= unread + bytesWritten;
-			--free			:= free - bytesWritten;
 			IAO.Atomic_Add(unread, Atomic_Integer(bytesWritten));
 			IAO.Atomic_Subtract(free, Atomic_Integer(bytesWritten));
 			locfree			:= locfree - bytesWritten;
@@ -360,12 +344,9 @@ package body LFRingDataBuffer is
 			if bytesToWrite <= locfree then
 				-- Write the remaining bytes we have.
 				put_line("rest at front.");
-				--put_line("data'Last: " & Unsigned_32'Image(data'Last));
 				writeback		:= (data_back + bytesToWrite) - 1;
 				buffer.all(data_back .. writeback) := data(bytesWritten .. data'Last);
 				bytesWritten	:= bytesWritten + bytesToWrite;
-				--unread			:= unread + bytesToWrite;
-				--free			:= free - bytesToWrite;
 				IAO.Atomic_Add(unread, Atomic_Integer(bytesToWrite));
 				IAO.Atomic_Subtract(free, Atomic_Integer(bytesToWrite));
 				data_back		:= data_back + bytesToWrite;
@@ -375,8 +356,6 @@ package body LFRingDataBuffer is
 				writeback		:= (data_back + locfree) - 1;
 				buffer.all(data_back .. writeback) := data(bytesWritten .. (bytesWritten + locfree - 1));
 				bytesWritten	:= bytesWritten + locfree;
-				--unread			:= unread + locfree;
-				--free			:= free - locfree;
 				IAO.Atomic_Add(unread, Atomic_Integer(locfree));
 				IAO.Atomic_Subtract(free, Atomic_Integer(locfree));
 				data_back		:= data_back + locfree;

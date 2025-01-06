@@ -18,7 +18,6 @@ package LFRingDataBuffer is
 		DB_SEEK_END);
 		
 	type buff_array is array(Unsigned_32 range <>) of Unsigned_8;
-	--type seekRequestCB is not null access procedure (session: Integer; offset: Unsigned_64);
 	type seekRequestCB is access procedure (session: Integer; offset: Unsigned_64);
 	
 	type drq_access is access dataRequestTask;
@@ -70,9 +69,7 @@ private
 	capacity 	: Unsigned_32;
 	size		: Unsigned_32;
 	filesize	: Integer_64;
-	--unread		: Unsigned_32 with Atomic;
 	unread		: aliased Atomic_Integer;
-	--free		: Unsigned_32 with Atomic;
 	free		: aliased Atomic_Integer;
 	byteIndex	: Unsigned_32;
 	byteIndexLow	: Unsigned_32;
@@ -84,9 +81,7 @@ private
 	seekCB	: seekRequestCB;
 	readT	: drq_access;
 	
-	--seekRequestPending	: Boolean with Atomic;
 	seekRequestPending	: aliased Atomic_Boolean;
-	--resetRequest		: Boolean with Atomic;
 	resetRequest		: aliased Atomic_Boolean;
 	
 	sessionHandle	: Unsigned_32;
